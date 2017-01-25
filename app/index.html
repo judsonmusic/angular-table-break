@@ -21,7 +21,6 @@
 
                 page-break-after: always;
                 border: 1px solid red;
-                height: 930px;
             }
 
         }
@@ -30,7 +29,6 @@
 
             border: 1px solid red;
             position: relative;
-            height: 930px;
 
         }
 
@@ -44,10 +42,261 @@
 
 </head>
 <body ng-app="app" ng-controller="appCtrl">
-<!--<div class="print-bounds"></div>
-<div class="print-bounds"></div>
-<div class="print-bounds"></div>-->
-<table class="table table-bordered table-striped" table-break="">
+
+<div class="print-header-main"><!-- top Report header -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="blue-text ng-binding">DAVID&nbsp;M&nbsp;CROSS</h3>
+            <aside class="pull-right">
+                <button s-id="button.patient-clinical-report.print-report" class="btn no-print" ng-click="printReport('printPatientClinicalReport')" style="display: none;"><i class="fa fa-print"></i></button>
+                <img ng-src="http://localhost:3000/images/icon-close.png" id="btnClose" onclick="window.close();" src="http://localhost:3000/images/icon-close.png" style="display: inline;">
+            </aside>
+        </div>
+    </div><!-- end report header row 1 -->
+    <div class="row print header">
+        <div class="col-md-12 col-xs-12">
+            <div class="col-sm-4 col-xs-4">
+                <label>Patient Details</label><!-- HEADER - todo update for Fres. -->
+                <p s-id="p.patient-clinical-report.patient-details.dob" class="ng-binding"><b>DOB:</b> 09/10/1972</p>
+                <p s-id="p.patient-clinical-report.patient-details.height" class="ng-binding"><b>Height:</b> Unknown</p>
+                <p s-id="p.patient-clinical-report.patient-details.weight" class="ng-binding"><b>Weight:</b> Unknown</p>
+                <p s-id="p.patient-clinical-report.patient-details.gender" class="ng-binding"><b>Gender:</b> male</p>
+            </div><!-- END HEADER -->
+            <div class="col-sm-4 col-xs-4">
+                <label>Responsible Provider</label>
+                <!-- ngIf: patient.responsibleProviderName --><span ng-if="patient.responsibleProviderName" class="ng-scope">
+                          <p s-id="p.patient-clinical-report.responsible-provider.name" class="ng-binding">Scott Mcclure MBBS M.D.</p>
+                          <p s-id="p.patient-clinical-report.responsible-provider.description" class="ng-binding">seema  office in virgnia</p>
+                          <p s-id="p.patient-clinical-report.responsible-provider.address" class="ng-binding">seema seema , citycma, VA
+                              50005</p>
+                          <p s-id="p.patient-clinical-report.responsible-provider.phone" class="ng-binding">Ph. (731) 951-8901 ext. 1234</p>
+                          <p s-id="p.patient-clinical-report.responsible-provider.fax" class="ng-binding">Fx. (731) 952-8902</p>
+                        </span><!-- end ngIf: patient.responsibleProviderName -->
+            </div>
+            <div class="col-sm-4 col-xs-4">
+                <label>Default Pharmacy</label>
+                <!-- ngIf: pharmacyData.recentPharmacyName --><span ng-if="pharmacyData.recentPharmacyName" class="ng-scope">
+                                <p s-id="p.patient-clinical-report.default-pharmacy.name" class="ng-binding">TOPS PHARMACY # 113</p>
+                                <p s-id="p.patient-clinical-report.default-pharmacy.address" class="ng-binding">
+                                    425 Niagara Street, Buffalo,
+                                    NY
+                                    14201
+                                </p>
+                                <p s-id="p.patient-clinical-report.default-pharmacy.phone" class="ng-binding">Ph. (716) 852-7052</p>
+                                <p s-id="p.patient-clinical-report.default-pharmacy.fax" class="ng-binding">Fx. (855) 331-9008</p>
+                            </span><!-- end ngIf: pharmacyData.recentPharmacyName -->
+            </div>
+        </div>
+    </div><!-- end report header row 2 -->
+</div>
+
+<table s-id="patient-clinical-report.active-meds" class="table table-bordered table-striped" table-break="" header="true">
+    <thead>
+        <tr s-id="patient-clinical-report.active-meds.row-0">
+            <th s-id="patient-clinical-report.active-meds.row-0.cell-1">Name</th>
+            <th s-id="patient-clinical-report.active-meds.row-0.cell-2">Directions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <!-- ngRepeat: medication in medicationData.activeMedications track by $index -->
+    <tr class="ng-scope" s-id="patient-clinical-report.active-meds.row-1">
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-1.cell-1"><!-- ngIf: !medication.drugId -->
+            Advil (ibuprofen)
+            <br>
+            <!-- ngIf: medication.codingLevel == 'name' || medication.codingLevel == 'route' -->
+            200 mg&nbsp;tablet
+        </td>
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-1.cell-2">
+            Take 1 tablet by mouth twice a day. User Custom additional directions to patient 1
+            <!-- ngIf: medication.officeNotes --><span ng-if="medication.officeNotes" class="ng-scope"><br><br>
+                                        <label>Office Comments:</label>
+                                        <span class="ng-binding">User Custom prescription comments 1</span>
+                                    </span><!-- end ngIf: medication.officeNotes -->
+        </td>
+    </tr><!-- end ngRepeat: medication in medicationData.activeMedications track by $index -->
+    <tr class="ng-scope" s-id="patient-clinical-report.active-meds.row-2">
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-2.cell-1"><!-- ngIf: !medication.drugId -->
+            Lipitor (atorvastatin)
+            <br>
+            <!-- ngIf: medication.codingLevel == 'name' || medication.codingLevel == 'route' -->
+            40 mg&nbsp;tablet
+        </td>
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-2.cell-2">
+            Take 5 tablet by mouth once a day as directed. 23
+            <!-- ngIf: medication.officeNotes -->
+        </td>
+    </tr><!-- end ngRepeat: medication in medicationData.activeMedications track by $index -->
+    <tr class="ng-scope" s-id="patient-clinical-report.active-meds.row-3">
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-3.cell-1"><!-- ngIf: !medication.drugId -->
+            Prinivil (lisinopril)
+            <br>
+            <!-- ngIf: medication.codingLevel == 'name' || medication.codingLevel == 'route' -->
+            20 mg&nbsp;tablet
+        </td>
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-3.cell-2">
+            Take 1 tablet by mouth once a day
+            <!-- ngIf: medication.officeNotes -->
+        </td>
+    </tr><!-- end ngRepeat: medication in medicationData.activeMedications track by $index -->
+    <tr class="ng-scope" s-id="patient-clinical-report.active-meds.row-4">
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-4.cell-1"><!-- ngIf: !medication.drugId -->
+            siberian ginseng (bulk)
+            <br>
+            <!-- ngIf: medication.codingLevel == 'name' || medication.codingLevel == 'route' -->
+            &nbsp;powder
+        </td>
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-4.cell-2">
+            Take
+            <!-- ngIf: medication.officeNotes -->
+        </td>
+    </tr><!-- end ngRepeat: medication in medicationData.activeMedications track by $index -->
+    <tr class="ng-scope" s-id="patient-clinical-report.active-meds.row-5">
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-5.cell-1"><!-- ngIf: !medication.drugId -->
+            Test N'Go Blood Glucose System (blood-glucose meter)
+            <br>
+            <!-- ngIf: medication.codingLevel == 'name' || medication.codingLevel == 'route' -->
+            &nbsp;misc
+        </td>
+        <td class="ng-binding" s-id="patient-clinical-report.active-meds.row-5.cell-2">
+            Use
+            <!-- ngIf: medication.officeNotes -->
+        </td>
+    </tr><!-- end ngRepeat: medication in medicationData.activeMedications track by $index -->
+    </tbody>
+</table>
+
+<table s-id="patient-clinical-report.allergies" class="table table-bordered table-striped" table-break="">
+    <thead>
+    <tr s-id="patient-clinical-report.allergies.row-0">
+        <th s-id="patient-clinical-report.allergies.row-0.cell-1">Allergy</th>
+        <th s-id="patient-clinical-report.allergies.row-0.cell-2">Reaction</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-1">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-1.cell-1">1,2-pentanediol (bulk)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-1.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-2">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-2.cell-1">1st Tier Unifine Pentips (pen needle, diabetic)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-2.cell-2">test</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-3">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-3.cell-1">AA 3%#2(ped)-D5W-calc gluc-hep</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-3.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-4">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-4.cell-1">Absorica (isotretinoin)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-4.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-5">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-5.cell-1">Accu-Chek Aviva Plus test strp (blood sugar diagnostic)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-5.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-6">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-6.cell-1">Alcoh-Glove (isopropyl alcohol)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-6.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-7">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-7.cell-1">Aldara (imiquimod)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-7.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-8">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-8.cell-1">Atrovent HFA (ipratropium bromide)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-8.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-9">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-9.cell-1">Atrovent HFA (ipratropium bromide)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-9.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-10">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-10.cell-1">Bactrim</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-10.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-11">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-11.cell-1">Bactrim (sulfamethoxazole-trimethoprim)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-11.cell-2">anaphylaxis: anaphylaxis</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-12">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-12.cell-1">Bactrim (sulfamethoxazole-trimethoprim)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-12.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-13">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-13.cell-1">Bactrim (sulfamethoxazole-trimethoprim)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-13.cell-2">anaphylaxis</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-14">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-14.cell-1">Bactrim (sulfamethoxazole-trimethoprim)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-14.cell-2">anaphylaxis</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-15">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-15.cell-1">BiDil (isosorbide-hydralazine)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-15.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-16">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-16.cell-1">Bicillin L-A (penicillin g benzathine)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-16.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-17">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-17.cell-1">Penetran + Plus (ammonia solution, strong-msm)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-17.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-18">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-18.cell-1">all ext-Cal pepper tree pollen</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-18.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-19">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-19.cell-1">allerg ext-Penicillium notatum</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-19.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-20">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-20.cell-1">allerg xt-white pine pollen</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-20.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-21">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-21.cell-1">alpha pinene (bulk)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-21.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-22">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-22.cell-1">amoxapine</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-22.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-23">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-23.cell-1">amoxicillin</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-23.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-24">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-24.cell-1">amoxicillin</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-24.cell-2">nausea</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-25">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-25.cell-1">amoxicillin</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-25.cell-2">nausea</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-26">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-26.cell-1">amoxicillin</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-26.cell-2">nausea</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-27">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-27.cell-1">aspirin</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-27.cell-2">nausea</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-28">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-28.cell-1">ft</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-28.cell-2">swelling</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-29">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-29.cell-1">penicillin G potassium</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-29.cell-2">unspecified</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    <tr  class="ng-scope" s-id="patient-clinical-report.allergies.row-30">
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-30.cell-1">siberian ginseng (bulk)</td>
+        <td class="ng-binding" s-id="patient-clinical-report.allergies.row-30.cell-2">myalgia</td>
+    </tr><!-- end ngRepeat: allergy in allergyData.activeAllergies track by $index -->
+    </tbody>
+</table>
+<!--<table class="table table-bordered table-striped" table-break="">
     <thead>
     <tr>
         <th>The ID</th>
@@ -62,6 +311,6 @@
         <td>{{comment.body}}</td>
     </tr>
     </tbody>
-</table>
+</table>-->
 </body>
 </html>

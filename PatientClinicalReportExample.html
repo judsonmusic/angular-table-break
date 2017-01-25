@@ -63,7 +63,6 @@
         <div class="row">
             <div s-id="div.patient-clinical-report.medications-container" class="col-md-12 content-block">
                 <h4 s-id="h4.patient-clinical-report.medications.title" class="blue-text">Medications <!-- ngIf: !medicationData.activeMedications || !medicationData.activeMedications.length --></h4>
-
                 <!-- ngIf: medicationData.activeMedications.length > 0 -->
                 <div ng-if="medicationData.activeMedications.length > 0" class="ng-scope">
                     <table s-id="patient-clinical-report.active-meds" class="table table-bordered table-striped">
@@ -148,7 +147,6 @@
         <div class="row">
             <div s-id="div.patient-clinical-report.allergies-container" class="col-md-12 content-block">
                 <h4 s-id="h4.patient-clinical-report.allergies.title" class="blue-text">Allergies <span class="ng-binding"> - Active Allergies</span></h4>
-
                 <!-- ngIf: allergyData.activeAllergies.length -->
                 <div ng-if="allergyData.activeAllergies.length" class="ng-scope">
                     <table s-id="patient-clinical-report.allergies" class="table table-bordered table-striped">
