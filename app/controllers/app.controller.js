@@ -5,8 +5,9 @@ angular.module('app').controller('appCtrl', ['$scope', '$http', function ($scope
 
     $scope.init = function() {
         var root = 'https://jsonplaceholder.typicode.com';
+        root = "../json";
 
-        $http.get(root + '/posts').then(function (response) {
+        $http.get(root + '/posts.json').then(function (response) {
 
             console.log(response.data);
             $scope.comments = response.data;
